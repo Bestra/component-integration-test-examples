@@ -1,1 +1,17 @@
-{{yield}}
+<div>
+  <p>Vacation Time for {{user.fullName}}</p>
+
+  {{#each user.vacations as |vacation|}}
+    <div>
+      {{vacation.length}} days, {{vacation.startDate}} - {{vacation.endDate}}
+    </div>
+  {{else}}
+    No vacation scheduled
+  {{/each}}
+  <div>
+    <h3> Submit New Vacation </h3>
+    {{#ui/date-picker-group  as |startDate endDate change| }}
+      <input value={{startDate}} /> to <input value={{endDate}} />
+    {{/ui/date-picker-group}}
+  </div>
+</div>
