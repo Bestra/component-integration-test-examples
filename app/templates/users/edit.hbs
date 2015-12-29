@@ -1,1 +1,15 @@
-{{user/detail-card user=model}}
+<div class="user-card">
+  <p class="card-header">Details for {{model.userName}}</p>
+  <div>
+    <input value={{model.firstName}} />
+    <input value={{model.lastName}} />
+  </div>
+
+  <div>
+    <p>Vacation Time</p>
+    <div>
+      <input value={{model.vacationStart}} />
+      <input value={{model.vacationEnd}} />
+    </div>
+  </div>
+</div>
