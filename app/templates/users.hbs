@@ -1,0 +1,8 @@
+{{#each model as |user|}}
+  <div class="user-card">
+    {{#link-to 'users.edit' user}}
+      <span> {{user.fullName}} </span>
+    {{/link-to}}
+  </div>
+{{/each}}
+{{outlet}}
