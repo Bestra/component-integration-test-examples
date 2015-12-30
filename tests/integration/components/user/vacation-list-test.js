@@ -6,7 +6,6 @@ moduleForComponent('user/vacation-list', 'Integration | Component | user/vacatio
   integration: true
 });
 
-
 const userWithoutVacations = (testContext) => {
   const store = testContext.container.lookup('service:store');
   let testUser = Ember.run(() => {
@@ -49,10 +48,8 @@ test('it updates the new vacation length', function(assert) {
 
   this.render(hbs`{{user/vacation-list user=userToTest create=(action 'stubCreate')}}`);
 
-  assert.equal(this.$("[data-test-id='vacation-length']").text(), "7");
-
-  this.$("[data-test-id='date-pickers'] input:first").val('2015/02/01');
-  this.$("[data-test-id='date-pickers'] input:first").val('2015/02/03');
+  this.$("[data-test-id='date-pickers'] input:first").val('2015-02-01').change();
+  this.$("[data-test-id='date-pickers'] input:last").val('2015-02-03').change();
 
   assert.equal(this.$("[data-test-id='vacation-length']").text(), "2");
 

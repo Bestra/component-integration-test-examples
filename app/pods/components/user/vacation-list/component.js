@@ -3,7 +3,7 @@ import moment from 'moment';
 
 const format = function(key) {
   return Ember.computed(key, function() {
-    return this.get(key).format('l');
+    return this.get(key).format('YYYY-MM-DD');
   });
 };
 
@@ -29,8 +29,12 @@ export default Ember.Component.extend({
 
   },
   actions: {
-    changeDate() {
-      console.log(arguments);
+    changeDate(key, {target: { value }}) {
+      let newDate = moment(value);
+
+      if (newDate.isValid()) {
+        this.set(key, newDate);
+      }
     }
   }
 });
