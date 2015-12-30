@@ -8,14 +8,16 @@
   {{else}}
     No vacation scheduled
   {{/each}}
+
   <div>
-    <h3> Submit New Vacation </h3>
-    {{#ui/date-picker-group  as |startDate endDate changeDate| }}
-      {{input value=(readonly startDate)
-              change=(action changeDate 'startDate') }}
+    <h3> Create New Vacation </h3>
+      {{input value=(readonly startVal)
+              change=(action 'changeDate' 'startDate') }}
       to
-      {{input value=(readonly endDate)
-              change=(action changeDate 'endDate') }}
-    {{/ui/date-picker-group}}
+      {{input value=(readonly endVal)
+              change=(action 'changeDate' 'endDate') }}
+  </div>
+  <div>
+      <button {{action (action attrs.create startDate endDate)}}> Create </button>
   </div>
 </div>

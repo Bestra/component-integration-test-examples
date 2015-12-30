@@ -5,5 +5,5 @@
     <div> Last Name: {{model.lastName}} </div>
   </div>
 
-  {{user/vacation-list user=model}}
+  {{user/vacation-list create=(action 'createVacation' model) user=model}}
 </div>
