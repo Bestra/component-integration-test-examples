@@ -27,8 +27,8 @@ export default Component.extend({
   }),
 
   actions: {
-    dateChanged(propName, newDate) {
-      return null;
+    dateChanged(propName, {target: {value}}) {
+      console.log(value);
     }
   }
 

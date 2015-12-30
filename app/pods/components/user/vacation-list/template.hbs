@@ -10,8 +10,12 @@
   {{/each}}
   <div>
     <h3> Submit New Vacation </h3>
-    {{#ui/date-picker-group  as |startDate endDate change| }}
-      <input value={{startDate}} /> to <input value={{endDate}} />
+    {{#ui/date-picker-group  as |startDate endDate changeDate| }}
+      {{input value=(readonly startDate)
+              change=(action changeDate 'startDate') }}
+      to
+      {{input value=(readonly endDate)
+              change=(action changeDate 'endDate') }}
     {{/ui/date-picker-group}}
   </div>
 </div>
