@@ -1,9 +1,10 @@
 import Ember from 'ember';
 
 export default Ember.Route.extend({
-  userRepo: Ember.inject.service('repo/user'),
-
   model() {
-    return this.get('userRepo').all();
+    return [
+      this.store.createRecord('user', { id: "batman", userName: "batman", firstName: "Bruce", lastName: "Wayne" }),
+      this.store.createRecord('user', { id: "robin", userName: "robin", firstName: "William", lastName: "Grayson" })
+    ];
   }
 });
