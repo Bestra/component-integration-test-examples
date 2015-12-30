@@ -6,16 +6,6 @@ moduleForComponent('user/vacation-list', 'Integration | Component | user/vacatio
   integration: true
 });
 
-const userWithoutVacations = (testContext) => {
-  const store = testContext.container.lookup('service:store');
-  let testUser = Ember.run(() => {
-    return store.createRecord('user', {
-      firstName: "Bruce",
-      lastName: "Wayne"
-    });
-  });
-  return testUser;
-};
 
 test('it renders', function(assert) {
   // Set any properties with this.set('myProperty', 'value');
@@ -42,23 +32,34 @@ test('it renders', function(assert) {
 
 });
 
-test('it updates the new vacation length', function(assert) {
-  this.on('stubCreate', function() { return null; });
-  this.set('userToTest', userWithoutVacations(this));
-
-  this.render(hbs`{{user/vacation-list user=userToTest create=(action 'stubCreate')}}`);
-
-  this.$("[data-test-id='date-pickers'] input:first").val('2015-02-01').change();
-  this.$("[data-test-id='date-pickers'] input:last").val('2015-02-03').change();
-
-  assert.equal(this.$("[data-test-id='vacation-length']").text(), "2");
-
-});
+let userWithoutVacations = (container) => {
+  const store = container.lookup('service:store');
+  let testUser = Ember.run(() => {
+    return store.createRecord('user', {
+      firstName: "Bruce",
+      lastName: "Wayne"
+    });
+  });
+  return testUser;
+};
 
 let setDates = function(start, end) {
   this.$("[data-test-id='date-pickers'] input:first").val(start).change();
   this.$("[data-test-id='date-pickers'] input:last").val(end).change();
 };
+
+test('it updates the new vacation length', function(assert) {
+  this.on('stubCreate', function() { return null; });
+  this.set('userToTest', userWithoutVacations(this.container));
+
+  this.render(hbs`{{user/vacation-list user=userToTest create=(action 'stubCreate')}}`);
+
+  setDates.call(this, '2015-02-01', '2015-02-04');
+
+  assert.equal(this.$("[data-test-id='vacation-length']").text(), "3");
+
+});
+
 
 test('the Create button invokes the "create" action with start and end date', function(assert) {
   assert.expect(2);
@@ -68,7 +69,7 @@ test('the Create button invokes the "create" action with start and end date', fu
     assert.equal(end.format(fmt), '2015-02-03');
   });
 
-  this.set('userToTest', userWithoutVacations(this));
+  this.set('userToTest', userWithoutVacations(this.container));
 
   this.render(hbs`{{user/vacation-list user=userToTest create=(action 'stubCreate')}}`);
 
