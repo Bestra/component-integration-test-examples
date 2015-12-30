@@ -9,16 +9,9 @@ test('it renders', function(assert) {
   // Set any properties with this.set('myProperty', 'value');
   // Handle any actions with this.on('myAction', function(val) { ... });" + EOL + EOL +
 
-  this.render(hbs`{{user/vacation-list}}`);
+  this.on('stubCreate', function() { return null; });
+  this.render(hbs`{{user/vacation-list create=(action 'stubCreate')}}`);
 
-  assert.equal(this.$().text().trim(), '');
+  assert.ok(this.$().text().match(/Vacation Time/));
 
-  // Template block usage:" + EOL +
-  this.render(hbs`
-    {{#user/vacation-list}}
-      template block text
-    {{/user/vacation-list}}
-  `);
-
-  assert.equal(this.$().text().trim(), 'template block text');
 });

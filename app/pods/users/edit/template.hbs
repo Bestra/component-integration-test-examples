@@ -5,5 +5,7 @@
     <div> Last Name: {{model.lastName}} </div>
   </div>
 
-  {{user/vacation-list create=(action 'createVacation' model) user=model}}
+  {{#if auth.canSeeVacations}}
+    {{user/vacation-list create=(action 'createVacation' model) user=model}}
+  {{/if}}
 </div>

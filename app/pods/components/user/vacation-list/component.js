@@ -25,9 +25,8 @@ export default Ember.Component.extend({
 
   },
   actions: {
-    changeDate(val, name) {
+    changeDate() {
       console.log(arguments);
     }
   }
-
 });
