@@ -54,3 +54,25 @@ test('it updates the new vacation length', function(assert) {
   assert.equal(this.$("[data-test-id='vacation-length']").text(), "2");
 
 });
+
+let setDates = function(start, end) {
+  this.$("[data-test-id='date-pickers'] input:first").val(start).change();
+  this.$("[data-test-id='date-pickers'] input:last").val(end).change();
+};
+
+test('the Create button invokes the "create" action with start and end date', function(assert) {
+  assert.expect(2);
+  this.on('stubCreate', function(start, end) {
+    let fmt = 'YYYY-MM-DD';
+    assert.equal(start.format(fmt), '2015-02-01');
+    assert.equal(end.format(fmt), '2015-02-03');
+  });
+
+  this.set('userToTest', userWithoutVacations(this));
+
+  this.render(hbs`{{user/vacation-list user=userToTest create=(action 'stubCreate')}}`);
+
+  setDates.call(this, '2015-02-01', '2015-02-03');
+  this.$('button').click();
+
+});
