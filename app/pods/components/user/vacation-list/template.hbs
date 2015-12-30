@@ -9,13 +9,15 @@
     No vacation scheduled
   {{/each}}
 
-  <div>
+  <div data-test-id="date-pickers">
     <h3> Create New Vacation </h3>
       {{input value=(readonly startVal)
               change=(action 'changeDate' 'startDate') }}
       to
       {{input value=(readonly endVal)
               change=(action 'changeDate' 'endDate') }}
+
+    <span data-test-id="vacation-length">{{newLength}}</span> days
   </div>
   <div>
       <button {{action (action attrs.create startDate endDate)}}> Create </button>

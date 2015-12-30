@@ -15,6 +15,10 @@ export default Ember.Component.extend({
   startDate: null,
   endDate: null,
 
+  newLength: Ember.computed('startDate', 'endDate', function() {
+    return this.get('endDate').diff(this.get('startDate'), 'days');
+  }),
+
   init() {
     this._super(...arguments);
 
